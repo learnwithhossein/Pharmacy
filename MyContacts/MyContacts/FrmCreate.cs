@@ -1,44 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MyContacts.Repository;
-using MyContacts;
-
 
 
 namespace MyContacts
 {
-    public partial class Form2 : Form
+    public partial class FrmCreate : Form
     {
-        IContactRepository Repository;
-        public Form2()
+        readonly IContactRepository _repository;
+
+        public FrmCreate()
         {
             InitializeComponent();
-            Repository = new ContactRepository();
+
+            var context = new ContactsContext();
+            _repository = new SqlServerContactRepository(context);
         }
 
-        private void FormAddorEdit_Load(object sender, EventArgs e)
+        private void FrmCreate_Load(object sender, EventArgs e)
         {
-            this.Text = "افزودن شخص جدید";
+            Text = "افزودن شخص جدید";
         }
-        bool ValidateInput()
-        {
-            
 
-            if(txtName.Text=="")
+        private bool ValidateInput()
+        {
+            if (txtName.Text == "")
             {
-                
-          
-                MessageBox.Show("لطفا نام خود را وارد کنید.","هشدار", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("لطفا نام خود را وارد کنید.", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if(txtFamilyname.Text=="")
+            if (txtFamilyname.Text == "")
             {
                 MessageBox.Show("لطفا نام خانوادگی خود را وارد کنید.", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -54,8 +45,6 @@ namespace MyContacts
                 return false;
             }
 
-
-
             return true;
         }
 
@@ -63,8 +52,8 @@ namespace MyContacts
         {
             if (ValidateInput())
             {
-                bool isSucces = Repository.Insert(txtName.Text, txtFamilyname.Text, txtPhoneNumber.Text, txtEmail.Text, txtAddress.Text,(int)txtAge.Value);
-                if(isSucces==true)
+                var isSuccess = _repository.Insert(txtName.Text, txtFamilyname.Text, txtPhoneNumber.Text, txtEmail.Text, txtAddress.Text, (int)txtAge.Value);
+                if (isSuccess)
                 {
                     MessageBox.Show("عملیات با موفقیت انجام شد.", "موفقیت", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;
