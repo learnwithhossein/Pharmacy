@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
+using MyContacts.Model;
 
 
 namespace MyContacts.Repository
 {
-    interface IContactRepository
+    internal interface IContactRepository
     {
-        DataTable SelectAll();
-        DataTable SelectRow(int ContactID);
-        bool Insert(String name, String familyname, String TelNumber, String Email, String Address, int age);
-        bool Update(int ContactID, String name, String familyname, String TelNumber, String Email, String Address, int age);
-        bool Delet(int ContactID);
+        List<Contact> SelectAll();
+        Contact SelectRow(int contactId);
+
+        bool Insert(string name, string familyName, string telNumber, string email, string address, int age);
+        bool Update(int contactId, string name, string familyName, string telNumber, string email, string address, int age);
+        bool Delete(int contactId);
     }
 }
