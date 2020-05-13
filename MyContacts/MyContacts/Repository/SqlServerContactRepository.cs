@@ -1,41 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using MyContacts.Model;
+using System.Collections.Generic;
 using System.Linq;
-using MyContacts.Model;
 
 namespace MyContacts.Repository
 {
     internal class SqlServerContactRepository : IContactRepository
     {
-
-        private readonly ContactContext _context;
-
-        // private readonly string _connectionString = "data Source=. ; initial catalog=Contact_DB; Integrated Security= true";
-        public SqlServerContactRepository(ContactContext contact)
-        {
-            _context = contact;
-
-        }
-
         public bool Delete(int contactId)
         {
             try
             {
-                var contact = _context.Contacts.First(x => x.Id == contactId);
-                _context.Contacts.Remove(contact);
-                _context.SaveChanges();
+                var context = new ContactContext();
+
+                var contact = context.Contacts.First(x => x.Id == contactId);
+                context.Contacts.Remove(contact);
+                context.SaveChanges();
                 return true;
             }
             catch
             {
-
                 return false;
             }
         }
-        
 
         public bool Insert(string name, string familyName, string telNumber, string email, string address, int age)
         {
-
             try
             {
                 var contact = new Contact
@@ -48,26 +37,32 @@ namespace MyContacts.Repository
                     TelNumber = telNumber
                 };
 
-                _context.Contacts.Add(contact);
-                _context.SaveChanges();
+                var context = new ContactContext();
+
+                context.Contacts.Add(contact);
+                context.SaveChanges();
 
                 return true;
             }
             catch
             {
-
-                throw;
+                return false;
             }
         }
 
         public List<Contact> SelectAll()
         {
-            return _context.Contacts.ToList();
+            var context = new ContactContext();
+            var data = context.Contacts.ToList();
+
+            return data;
         }
 
         public Contact SelectRow(int contactId)
         {
-            var contact = _context.Contacts.First(x => x.Id == contactId);
+            var context = new ContactContext();
+
+            var contact = context.Contacts.First(x => x.Id == contactId);
 
             return contact;
         }
@@ -77,19 +72,21 @@ namespace MyContacts.Repository
         {
             try
             {
-                var contact = _context.Contacts.First(x => x.Id == contactId);
+                var context = new ContactContext();
+
+                var contact = context.Contacts.First(x => x.Id == contactId);
                 contact.Name = name;
                 contact.FamilyName = familyName;
                 contact.Age = age;
                 contact.Address = address;
                 contact.Email = email;
                 contact.TelNumber = telNumber;
-                _context.SaveChanges();
+
+                context.SaveChanges();
                 return true;
             }
             catch
             {
-
                 return false;
             }
         }

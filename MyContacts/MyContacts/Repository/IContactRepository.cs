@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
-using MyContacts.Model;
+﻿using MyContacts.Model;
+using System.Collections.Generic;
 
 
 namespace MyContacts.Repository
 {
-    internal interface IContactRepository
+    public interface IContactRepository
     {
         List<Contact> SelectAll();
         Contact SelectRow(int contactId);

@@ -55,27 +55,31 @@
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // contextMenuStrip2
             // 
+            this.contextMenuStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.Size = new System.Drawing.Size(61, 4);
             // 
             // contextMenuStrip3
             // 
+            this.contextMenuStrip3.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStrip3.Name = "contextMenuStrip3";
             this.contextMenuStrip3.Size = new System.Drawing.Size(61, 4);
             // 
             // toolStrip1
             // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAddContact,
             this.btnRefresh});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(791, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(791, 34);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -85,7 +89,7 @@
             this.btnAddContact.Image = ((System.Drawing.Image)(resources.GetObject("btnAddContact.Image")));
             this.btnAddContact.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnAddContact.Name = "btnAddContact";
-            this.btnAddContact.Size = new System.Drawing.Size(106, 22);
+            this.btnAddContact.Size = new System.Drawing.Size(161, 29);
             this.btnAddContact.Text = "افزودن شخص جدید";
             this.btnAddContact.Click += new System.EventHandler(this.btnAddContact_Click);
             // 
@@ -95,7 +99,7 @@
             this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
             this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(69, 22);
+            this.btnRefresh.Size = new System.Drawing.Size(104, 29);
             this.btnRefresh.Text = "به روزرسانی";
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
@@ -120,7 +124,6 @@
             // 
             // dgContact
             // 
-            this.dgContact.AllowUserToAddRows = false;
             this.dgContact.AllowUserToResizeRows = false;
             this.dgContact.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -137,7 +140,7 @@
             this.TelNumber});
             this.dgContact.Location = new System.Drawing.Point(3, 17);
             this.dgContact.Name = "dgContact";
-            this.dgContact.ReadOnly = true;
+            this.dgContact.RowHeadersWidth = 62;
             this.dgContact.Size = new System.Drawing.Size(761, 311);
             this.dgContact.TabIndex = 0;
             // 
@@ -145,51 +148,51 @@
             // 
             this.ContactID.DataPropertyName = "ContactID";
             this.ContactID.HeaderText = "کدشخص";
+            this.ContactID.MinimumWidth = 8;
             this.ContactID.Name = "ContactID";
-            this.ContactID.ReadOnly = true;
             this.ContactID.Visible = false;
             // 
             // name
             // 
             this.name.DataPropertyName = "name";
             this.name.HeaderText = "نام";
+            this.name.MinimumWidth = 8;
             this.name.Name = "name";
-            this.name.ReadOnly = true;
             // 
             // Familyname
             // 
             this.Familyname.DataPropertyName = "familyname";
             this.Familyname.HeaderText = "نام فامیلی";
+            this.Familyname.MinimumWidth = 8;
             this.Familyname.Name = "Familyname";
-            this.Familyname.ReadOnly = true;
             // 
             // Age
             // 
             this.Age.DataPropertyName = "age";
             this.Age.HeaderText = "سن";
+            this.Age.MinimumWidth = 8;
             this.Age.Name = "Age";
-            this.Age.ReadOnly = true;
             // 
             // Address
             // 
             this.Address.DataPropertyName = "Address";
             this.Address.HeaderText = "آدرس";
+            this.Address.MinimumWidth = 8;
             this.Address.Name = "Address";
-            this.Address.ReadOnly = true;
             // 
             // Email
             // 
             this.Email.DataPropertyName = "Email";
             this.Email.HeaderText = "ایمیل";
+            this.Email.MinimumWidth = 8;
             this.Email.Name = "Email";
-            this.Email.ReadOnly = true;
             // 
             // TelNumber
             // 
             this.TelNumber.DataPropertyName = "TelNumber";
             this.TelNumber.HeaderText = "شماره تلفن";
+            this.TelNumber.MinimumWidth = 8;
             this.TelNumber.Name = "TelNumber";
-            this.TelNumber.ReadOnly = true;
             // 
             // btnEdit
             // 
@@ -213,7 +216,7 @@
             // 
             // FrmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(791, 440);
             this.Controls.Add(this.btnDelete);

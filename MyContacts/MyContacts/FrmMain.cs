@@ -1,10 +1,6 @@
 ﻿using MyContacts.Repository;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
-using MyContacts.Model;
 
 namespace MyContacts
 {
@@ -15,39 +11,35 @@ namespace MyContacts
         public FrmMain()
         {
             InitializeComponent();
-            var contact = new ContactContext();
-            _repository = new SqlServerContactRepository(contact);
+
+            _repository = new SqlServerContactRepository();
         }
 
         private void FrmCreate(object sender, EventArgs e)
         {
             BindGrid();
-
         }
 
         private void BindGrid()
         {
-           
-           dgContact.DataSource = _repository.SelectAll();
-
-
+            var data = _repository.SelectAll();
+            dgContact.DataSource = new BindingSource(data, null);
         }
-        
+
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            dgContact.Refresh();
+            BindGrid();
         }
 
         private void btnAddContact_Click(object sender, EventArgs e)
         {
-            var frm = new FrmCreate();
+            var frm = new FrmCreate(_repository);
             frm.ShowDialog();
             if (frm.DialogResult == DialogResult.OK)
             {
                 BindGrid();
             }
         }
-
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -60,16 +52,14 @@ namespace MyContacts
                 if (MessageBox.Show($"  آیا از حذف  {fullName}  مطمئن هستید؟ ", "توجه", MessageBoxButtons.YesNo) ==
                     DialogResult.Yes)
                 {
-                    int contactID = int.Parse(dgContact.CurrentRow.Cells[1].Value.ToString());
-                    _repository.Delete(contactID);
+                    var contactId = int.Parse(dgContact.CurrentRow.Cells[1].Value.ToString());
+                    _repository.Delete(contactId);
                     BindGrid();
                 }
             }
             else
             {
                 MessageBox.Show("لطفا یک شخص را از لیست انتخاب کنید");
-
-
             }
         }
 
@@ -77,18 +67,13 @@ namespace MyContacts
         {
             if (dgContact.CurrentRow != null)
             {
-                int contactId = int.Parse(dgContact.CurrentRow.Cells[1].Value.ToString());
+                var contactId = int.Parse(dgContact.CurrentRow.Cells[1].Value.ToString());
                 var contact = _repository.SelectRow(contactId);
-                FrmCreate frm = new FrmCreate(contact);
-                
+                var frm = new FrmCreate(contact, _repository);
+
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
-                    // BindGrid();
-                    var list = dgContact.DataSource as List<Contact>;
-                    var updated = _repository.SelectRow(contactId);
-                    list.Remove(contact);
-                    list.Add(updated);
-
+                    BindGrid();
                 }
             }
         }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using System.Windows.Forms;
-using MyContacts.Model;
+﻿using MyContacts.Model;
 using MyContacts.Repository;
-
+using System;
+using System.Windows.Forms;
 
 namespace MyContacts
 {
@@ -12,58 +10,52 @@ namespace MyContacts
         private Contact _contact;
         private bool _isEditMode = false;
         private IContactRepository _repository;
-        
-        public FrmCreate()
+
+        public FrmCreate(IContactRepository repository)
         {
+            _repository = repository;
             Initialize();
         }
 
-        public FrmCreate(Contact contact)
+        public FrmCreate(Contact contact, IContactRepository repository)
         {
             Initialize();
             _contact = contact;
+            _repository = repository;
             _isEditMode = true;
         }
 
         private void Initialize()
         {
             InitializeComponent();
-
-            var context = new ContactContext();
-            _repository = new SqlServerContactRepository(context);
-
         }
 
         private void FrmCreate_Load(object sender, EventArgs e)
         {
             if (!_isEditMode)
             {
-                this.Text = "افزودن شخص جدید";
+                Text = "افزودن شخص جدید";
             }
             else
             {
-                this.Text = "ویرایش شخص";
+                Text = "ویرایش شخص";
                 txtName.Text = _contact.Name;
                 txtFamilyname.Text = _contact.FamilyName;
                 txtAge.Text = _contact.Age.ToString();
                 txtEmail.Text = _contact.Email;
                 txtAddress.Text = _contact.Address;
                 txtPhoneNumber.Text = _contact.TelNumber;
-
-
-
             }
         }
 
-
         private bool ValidateInput()
         {
-            if(txtName.Text=="")
+            if (txtName.Text == "")
             {
-                MessageBox.Show("لطفا نام خود را وارد کنید.","هشدار", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("لطفا نام خود را وارد کنید.", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if(txtFamilyname.Text=="")
+            if (txtFamilyname.Text == "")
             {
                 MessageBox.Show("لطفا نام خانوادگی خود را وارد کنید.", "هشدار", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -85,7 +77,7 @@ namespace MyContacts
             {
                 if (_isEditMode)
                 {
-                    _repository.Update(_contact.Id,  txtName.Text, txtFamilyname.Text, txtPhoneNumber.Text, txtEmail.Text, txtAddress.Text, (int) txtAge.Value);
+                    _repository.Update(_contact.Id, txtName.Text, txtFamilyname.Text, txtPhoneNumber.Text, txtEmail.Text, txtAddress.Text, (int)txtAge.Value);
                     DialogResult = DialogResult.OK;
                 }
                 else
@@ -102,7 +94,7 @@ namespace MyContacts
                     }
 
                 }
-               
+
             }
         }
     }
